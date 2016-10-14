@@ -21,5 +21,5 @@ If you cannot use Cocoapods, Install using the Framework <a href="https://pyze.c
 
 <br>
 
-###The version of Pyze Framework on this page supports iOS 8.x, 9.x, 10.x or higher (recommended)
-###If your app targets iOS 7 and higher, see: https://github.com/pyze/iOS-Library-iOS7
+###The version of Pyze Framework on this page supports iOS 7.x or or higher
+###If your app targets iOS 8 and higher, see: https://github.com/pyze/iOS-Library (recommended)
