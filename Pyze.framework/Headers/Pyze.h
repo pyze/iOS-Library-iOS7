@@ -167,7 +167,27 @@ typedef NS_ENUM(NSInteger, PyzeDeepLinkStatus) {
 + (void) initialize:(NSString *)pyzeAppKey withLogThrottling: (PyzeLogLevel) logLevel;
 
 
-/// @name  Timer Reference to use with timed custom events
+/**
+ *  Log throttling level can be changed anytime in the app
+ *
+ *  How to use:
+ *
+ *    [Pyze logThrottling:PyzelogLevelMinimal];
+ *
+ *  or
+ *
+ *    [Pyze logThrottling:PyzelogLevelErrors];
+ *
+ *  @param logLevel Log level you would wish to see in the console.
+ *
+ *  - Since: 2.0.5
+ *
+ */
++(void) logThrottling:(PyzeLogLevel) logLevel;
+
+
+
+/// @name  Create Timer Reference to use in Timed Custom Events using PyzeCustomEvents class
 
 /**
  *  Pyze Timer Reference is a time interval since a Pyze internal reference time in seconds with millisecond precision e.g. 6.789 seconds (or 6789 milliseconds)
@@ -188,26 +208,6 @@ typedef NS_ENUM(NSInteger, PyzeDeepLinkStatus) {
 +(double) timerReference;
 
 
-
-/// @name Throttling logs for troubleshooting
-
-/**
- *  Log throttling level can be changed anytime in the app
- *
- *  How to use:
- *
- *    [Pyze logThrottling:PyzelogLevelMinimal];
- *
- *  or
- *
- *    [Pyze logThrottling:PyzelogLevelErrors];
- *
- *  @param logLevel Log level you would wish to see in the console.
- *
- *  - Since: 2.0.5
- *
- */
-+(void) logThrottling:(PyzeLogLevel) logLevel;
 
 
 
@@ -328,7 +328,7 @@ typedef NS_ENUM(NSInteger, PyzeDeepLinkStatus) {
 + (NSString *)hash:(NSString *)stringToHash;
 
 
-/// @name Deprecated methods
+/// @name Deprecated methods (to be removed in subsequent releases)
 
 /**
  *  Deprecated in favor of static initialize: method
