@@ -187,7 +187,7 @@ typedef NS_ENUM(NSInteger, PyzeDeepLinkStatus) {
 
 
 
-/// @name  Create Timer Reference to use in Timed Custom Events using PyzeCustomEvents class
+/// @name  Create Timer Reference to use in Timed Custom Events using PyzeCustomEvent class
 
 /**
  *  Pyze Timer Reference is a time interval since a Pyze internal reference time in seconds with millisecond precision e.g. 6.789 seconds (or 6789 milliseconds)
@@ -232,6 +232,18 @@ typedef NS_ENUM(NSInteger, PyzeDeepLinkStatus) {
  *  - Since: 2.2.1
  */
 +(void) processReceivedRemoteNotification:(NSDictionary *) userInfo;
+
+
+/**
+ *  Use this API to process the local/remote push notifications. Call this everytime when you receive the remote notification from application:handleActionWithIdentifier:forRemoteNotification:completionHandler:. For example: Button handlers in
+ interactive push notifications. If you are not using button handlers in push messages, you can pass nil to 'identifer' parameter.
+ 
+ *  @param userInfo User information received as a payload.
+ *
+ *  - Since: 2.9.1
+ */
+
++(void) processReceivedRemoteNotificationWithId:(NSString *) identifer withUserInfo:(NSDictionary *) userInfo;
 
 
 /// @name In-App Notifications (using Built-in User Interface)
