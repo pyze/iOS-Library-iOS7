@@ -91,10 +91,15 @@ typedef NS_ENUM(NSInteger, PyzeInAppMessageType) {
  *  - Since: 2.3.0
  */
 typedef NS_ENUM(NSInteger, PyzeDeepLinkStatus) {
+    
+    /**
+     *  Pyze call to action provided when user taps on any of the button while creating the in-app
+     */
+    PyzeCTA = 0,
     /**
      *  Deeplink not provided while creating the in-app
      */
-    PyzeDeepLinkNotProvided = 0,
+    PyzeDeepLinkNotProvided,
     /**
      *  Deeplink successfully called. For Example: (http://pyze.com or yelp://search?term=burritos where yelp application is installed on the device)
      */
@@ -102,7 +107,16 @@ typedef NS_ENUM(NSInteger, PyzeDeepLinkStatus) {
     /**
      *  Invalid or deeplink not found. For Example: (mispelt htp://pyze.com or yelp://search?term=burritos where yelp application is not installed on the device)
      */
-    PyzeDeepLinkCallFailed
+    PyzeDeepLinkCallFailed,
+    /**
+     *  Unique identifier for button click provided while creating the in-app. This needs to be handled by apps.
+     */
+    PyzeUniqueIdentifier,
+    /**
+     *  Web-hook provided while creating in-app message.
+     */
+    PyzeWebhook,
+    
 };
 
 
@@ -181,6 +195,32 @@ typedef NS_ENUM(NSInteger, PyzeDeepLinkStatus) {
 +(void) logThrottling:(PyzeLogLevel) logLevel;
 
 
+/// @name User Identity helpers
+
+/**
+ *  Set App specific User Identifer.  Use this to identify users by an app specific trait. Examples include: username, userid, hashedid.  It is highly recommended you do not send PII.  Call postIfChanged after setting all identifiers. On invoke, this calls PyzeIdentity's setAppSpecificUserId method.
+ *
+ *  @param appSpecificUserId An app specific user identifer
+ 
+ *  - Since: v3.2.1
+ 
+ *  @see PyzeIdentity
+ */
++(void) setAppSpecificUserId:(NSString *) appSpecificUserId;
+
+/**
+ *  Reset App specific User Identifer.  Use this to identify users by an app specific trait. Examples include: username, userid, hashedid.  It is highly recommended you do not send PII.  Call postIfChanged after setting all identifiers. On invoke, this calls PyzeIdentity's resetAppSpecificUserId method.
+ *
+ *  @param appSpecificUserId An app specific user identifer
+ 
+ *  - Since: v3.2.1
+ 
+ *  @see PyzeIdentity
+ */
++(void) resetAppSpecificUserId:(NSString *) appSpecificUserId;
+
+
+
 /// @name  Create Timer Reference to use in Timed Custom Events using PyzeCustomEvent class
 
 /**
@@ -256,6 +296,18 @@ typedef NS_ENUM(NSInteger, PyzeDeepLinkStatus) {
  *  will loaded with default presentation colors used by the SDK. When user taps on any of the buttons in in-app message
  *  completionhandler method will be called.
  *
+ *      [Pyze countNewUnFetched:^(NSInteger result) {
+ *          if (result > 0) {
+ *              [Pyze showUnreadInAppNotificationUIWithCompletionHandler:^(PyzeInAppStatus *inAppStatus) {
+ *                  NSLog(@"buttonIndex = %d", (int)inAppStatus.buttonIndex);
+ *                  NSLog(@"message-ID =%@" , inAppStatus.messageID);
+ *                  NSLog(@"campaign-ID = %@", inAppStatus.campaignID);
+ *                  NSLog(@"title = %@",inAppStatus.title);
+ *                  NSLog(@"urlString = %@",inAppStatus.urlString);
+ *              }];
+ *          }
+ *      }];
+ *
  *  @param completionhandler Completion handler
  *
  *  - Since: 2.5.3
@@ -278,7 +330,6 @@ typedef NS_ENUM(NSInteger, PyzeDeepLinkStatus) {
 +(void) showInAppNotificationUIForDisplayMessages:(PyzeInAppMessageType) messageType
                               navigationTextColor:(UIColor *) textColor
                             withCompletionHandler:(void (^)(PyzeInAppStatus *inAppStatus))completionhandler;
-
 
 /**
  *  Dismisses the in-app notification UI.
