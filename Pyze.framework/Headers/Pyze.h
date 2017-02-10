@@ -566,6 +566,13 @@ typedef NS_ENUM(NSInteger, PyzeDeepLinkStatus) {
  */
 @property (nonatomic, assign) PyzeDeepLinkStatus status;
 
+/**
+ *  Called only when Webhook request fails.
+ */
+@property (nonatomic, strong) NSError *error;
+
+
+
 @end
 
 #pragma mark - Pyze Personalization Intelligence
