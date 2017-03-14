@@ -195,29 +195,6 @@ typedef NS_ENUM(NSInteger, PyzeDeepLinkStatus) {
 +(void) logThrottling:(PyzeLogLevel) logLevel;
 
 
-/// @name User Identity helpers
-
-/**
- *  Set App specific User Identifer.  Use this to identify users by an app specific trait. Examples include: username, userid, hashedid.  It is highly recommended you do not send PII.  Call postIfChanged after setting all identifiers. On invoke, this calls PyzeIdentity's setAppSpecificUserId method.
- *
- *  @param appSpecificUserId An app specific user identifer
- 
- *  - Since: v3.2.1
- 
- *  @see PyzeIdentity
- */
-+(void) setAppSpecificUserId:(NSString *) appSpecificUserId;
-
-/**
- *  Reset App specific User Identifer.  Use this to identify users by an app specific trait. Examples include: username, userid, hashedid.  It is highly recommended you do not send PII.  Call postIfChanged after setting all identifiers. On invoke, this calls PyzeIdentity's resetAppSpecificUserId method.
- *
- *  @param appSpecificUserId An app specific user identifer
- 
- *  - Since: v3.2.1
- 
- *  @see PyzeIdentity
- */
-+(void) resetAppSpecificUserId:(NSString *) appSpecificUserId;
 
 
 
